@@ -1,5 +1,5 @@
 {
-  "name": "lightkeeper",
+  "name": "@nodaguti/lightkeeper",
   "version": "0.1.0",
   "description": "A synthetic monitoring and analysis tool built on top of Lighthouse",
   "bin": {
