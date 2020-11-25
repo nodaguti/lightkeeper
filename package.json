@@ -1,6 +1,6 @@
 {
   "name": "@nodaguti/lightkeeper",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A synthetic monitoring and analysis tool built on top of Lighthouse",
   "bin": {
     "lightkeeper": "dist/cli.js"
