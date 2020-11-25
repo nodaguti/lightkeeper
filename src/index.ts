@@ -36,7 +36,7 @@ export async function lightkeeper({
     const runnerResult = await lighthouse(url, settings, config);
     const metrics = extractMetrics(runnerResult.lhr, metricConfigs);
 
-    console.log(metrics);
+    console.log(JSON.stringify({ metrics }));
   } finally {
     await chrome.kill();
   }
