@@ -22,7 +22,9 @@ export async function lightkeeper({
   lighthouseFlags: LighthouseFlagsSettings;
   lighthouseConfig: LighthouseConfig;
 }): Promise<void> {
-  const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+  const chrome = await chromeLauncher.launch({
+    chromeFlags: ['--headless', '--no-sandbox'],
+  });
 
   try {
     const settings = generateLighthouseFlagsSettings({
