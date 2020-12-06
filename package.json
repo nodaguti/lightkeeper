@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "lint": "tsc --noEmit && prettier --check 'src/**/*.{ts,js,json,md}'",
     "test": "jest",
     "prepublishOnly": "yarn build"
   },
