@@ -11,13 +11,15 @@ async function main(): Promise<void> {
   const configPath = path.resolve(process.cwd(), argv.config);
   const config = await import(configPath);
 
-  await lightkeeper({
+  const result = await lightkeeper({
     url: argv.url,
     device: argv.device,
     metricConfigs: config.metrics,
     lighthouseFlags: config.lighthouse?.flags,
     lighthouseConfig: config.lighthouse?.config,
   });
+
+  console.log(JSON.stringify(result));
 }
 
 main().catch(console.error);

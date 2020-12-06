@@ -7,7 +7,11 @@ import {
   LighthouseFlagsSettings,
   LighthouseConfig,
 } from './lighthouse_config';
-import { extractMetrics, MetricConfig } from './metrics';
+import { extractMetrics, MetricConfig, Metric } from './metrics';
+
+export type LightkeeperResult = {
+  metrics: Metric[];
+};
 
 export async function lightkeeper({
   url,
@@ -21,7 +25,7 @@ export async function lightkeeper({
   metricConfigs: MetricConfig[];
   lighthouseFlags: LighthouseFlagsSettings;
   lighthouseConfig: LighthouseConfig;
-}): Promise<void> {
+}): Promise<LightkeeperResult> {
   const chrome = await chromeLauncher.launch({
     chromeFlags: ['--headless', '--no-sandbox'],
   });
@@ -38,7 +42,7 @@ export async function lightkeeper({
     const runnerResult = await lighthouse(url, settings, config);
     const metrics = extractMetrics(runnerResult.lhr, metricConfigs);
 
-    console.log(JSON.stringify({ metrics }));
+    return { metrics };
   } finally {
     await chrome.kill();
   }

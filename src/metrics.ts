@@ -7,7 +7,7 @@ export type MetricConfig = {
   query: JSONPathExpression;
 };
 
-type Metric = {
+export type Metric = {
   name: string;
   value: string | number;
 };
