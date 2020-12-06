@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  lint_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +19,5 @@ jobs:
         with:
           node-version: '12.x'
       - run: yarn --frozen-lockfile
-      - run: yarn build
       - run: yarn lint
       - run: yarn test
