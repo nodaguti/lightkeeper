@@ -8,19 +8,21 @@ import {
   LighthouseConfig,
 } from './lighthouse_config';
 import { extractMetrics, MetricConfig, Metric } from './metrics';
-
-export type LightkeeperResult = {
-  metrics: Metric[];
-};
+import { AggregatedMetric, aggregateResults } from './aggregation';
 
 export type LightkeeperResults = {
-  results: LightkeeperResult[];
+  results: Metric[][];
+};
+
+export type LightkeeperAggregatedResult = {
+  metrics: AggregatedMetric[];
 };
 
 export async function lightkeeper({
   url,
   device,
   runs,
+  aggregate,
   metricConfigs,
   lighthouseFlags,
   lighthouseConfig,
@@ -28,10 +30,11 @@ export async function lightkeeper({
   url: string;
   device: Device;
   runs: number;
+  aggregate: boolean;
   metricConfigs: MetricConfig[];
   lighthouseFlags: LighthouseFlagsSettings;
   lighthouseConfig: LighthouseConfig;
-}): Promise<LightkeeperResults> {
+}): Promise<LightkeeperResults | LightkeeperAggregatedResult> {
   const chrome = await chromeLauncher.launch({
     chromeFlags: ['--headless', '--no-sandbox'],
   });
@@ -46,13 +49,18 @@ export async function lightkeeper({
       userConfig: lighthouseConfig,
     });
 
-    const results = [];
+    const results: Metric[][] = [];
 
     for (let i = 0; i < runs; i++) {
       const runnerResult = await lighthouse(url, settings, config);
       const metrics = extractMetrics(runnerResult.lhr, metricConfigs);
 
       results.push(metrics);
+    }
+
+    if (aggregate) {
+      const aggregatedResults = aggregateResults(results);
+      return { metrics: aggregatedResults };
     }
 
     return { results };

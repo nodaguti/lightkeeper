@@ -1,5 +1,6 @@
 {
   "runs": 3,
+  "aggregate": true,
   "lighthouse": {
     "flags": {},
     "config": {

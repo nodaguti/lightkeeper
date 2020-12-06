@@ -15,6 +15,7 @@ async function main(): Promise<void> {
     url: argv.url,
     device: argv.device,
     runs: config.runs,
+    aggregate: config.aggregate,
     metricConfigs: config.metrics,
     lighthouseFlags: config.lighthouse?.flags,
     lighthouseConfig: config.lighthouse?.config,
