@@ -1,0 +1,28 @@
+{
+  "lighthouse": {
+    "flags": {},
+    "config": {
+      "settings": {
+        "skipAudits": ["screenshot-thumbnails", "final-screenshot"]
+      }
+    }
+  },
+  "metrics": [
+    {
+      "name": "largest-contentful-paint",
+      "query": "$['audits']['largest-contentful-paint']['numericValue']"
+    },
+    {
+      "name": "total-blocking-time",
+      "query": "$['audits']['total-blocking-time']['numericValue']"
+    },
+    {
+      "name": "cumulative-layout-shift",
+      "query": "$['audits']['cumulative-layout-shift']['numericValue']"
+    },
+    {
+      "name": "user-timing-foo",
+      "query": "$['audits']['user-timings']['details']['items'][?(@['name']=='foo')]['startTime']"
+    }
+  ]
+}
