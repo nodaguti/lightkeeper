@@ -14,6 +14,7 @@ async function main(): Promise<void> {
   const result = await lightkeeper({
     url: argv.url,
     device: argv.device,
+    runs: config.runs,
     metricConfigs: config.metrics,
     lighthouseFlags: config.lighthouse?.flags,
     lighthouseConfig: config.lighthouse?.config,

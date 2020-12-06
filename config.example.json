@@ -1,4 +1,5 @@
 {
+  "runs": 3,
   "lighthouse": {
     "flags": {},
     "config": {
