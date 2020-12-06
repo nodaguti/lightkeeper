@@ -5,15 +5,83 @@
 ## Installation
 
 ```
-$ yarn add --global lightkeeper
+$ yarn add --global @nodaguti/lightkeeper
 ```
 
 ## Usages
 
 ### Gather metrics
 
+#### CLI
+
 ```
 $ lightkeeper --url=https://example.com --device=<'mobile'|'desktop'> --config=/path/to/config.json
+```
+
+#### Node.js API
+
+```js
+import { lightkeeper } from '@nodaguti/lightkeeper';
+
+const results = await lightkeeper({
+  url,
+  device,
+  runs,
+  aggregate,
+  metricConfigs,
+  lighthouseFlags,
+  lighthouseConfig,
+});
+```
+
+#### Output
+
+When `aggregate` option is set to `false`, `lightkeeper()` returns a following object:
+
+```json5
+{
+  "results": [
+    [
+      { "name": "largest-contentful-paint", value: 1234.56 },
+      { "name": "total-blocking-time", value: 123.45 },
+      // ....
+    ],
+    [
+      { "name": "largest-contentful-paint", value: 1234.56 },
+      { "name": "total-blocking-time", value: 123.45 },
+      // ....
+    ],
+    // ...
+  ];
+}
+```
+
+When `aggregate` option is set to `true`:
+
+```json5
+{
+  metrics: [
+    {
+      name: 'largest-contentful-paint',
+      value: {
+        min: 0,
+        max: 0,
+        sum: 0,
+        mean: 0,
+        median: 0,
+        variance: 0,
+        standardDeviation: 0,
+      },
+    },
+    {
+      name: 'total-blocking-time',
+      value: {
+        // ...
+      },
+    },
+    // ...
+  ],
+}
 ```
 
 ### Statistically compare metrics of multiple websites
@@ -30,6 +98,8 @@ $ lightkeeper --url=https://example.com --device=<'mobile'|'desktop'> --config=/
 
 ```json
 {
+  "runs": 3,
+  "aggregate": true,
   "lighthouse": {
     "flags": {},
     "config": {
@@ -58,6 +128,14 @@ $ lightkeeper --url=https://example.com --device=<'mobile'|'desktop'> --config=/
   ]
 }
 ```
+
+#### runs
+
+Specifies how many times Lighthouse will run. A higher value contibutes more robust results but takes a long time to finish measuring.
+
+#### aggregate
+
+If set true, results of multiple runs will be aggregated and Lightkeeper outputs only statistically processed values of metrics.
 
 #### lighthouse.flags
 
