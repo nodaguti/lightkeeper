@@ -41,12 +41,13 @@ When `aggregate` option is set to `false`, `lightkeeper()` returns a following o
 ```json5
 {
   "results": [
-    [
+    // Each "metrics" represents a single run of Lighthouse
+    "metrics": [
       { "name": "largest-contentful-paint", value: 1234.56 },
       { "name": "total-blocking-time", value: 123.45 },
       // ....
     ],
-    [
+    "metrics": [
       { "name": "largest-contentful-paint", value: 1234.56 },
       { "name": "total-blocking-time", value: 123.45 },
       // ....

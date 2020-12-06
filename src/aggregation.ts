@@ -1,3 +1,4 @@
+import { LightkeeperResults } from '.';
 import { Metric } from './metrics';
 
 export type AggregatedMetric = {
@@ -13,11 +14,13 @@ export type AggregatedMetric = {
   };
 };
 
-export function aggregateResults(results: Metric[][]): AggregatedMetric[] {
+export function aggregateResults(
+  results: LightkeeperResults,
+): AggregatedMetric[] {
   const resultsGroupedByMetric: {
     [metricName: string]: Metric[];
-  } = results.reduce((acc, metrics) => {
-    metrics.forEach((metric) => {
+  } = results.results.reduce((acc, metrics) => {
+    metrics.metrics.forEach((metric) => {
       if (acc[metric.name] === undefined) {
         acc[metric.name] = [];
       }
