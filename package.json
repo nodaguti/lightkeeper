@@ -22,7 +22,7 @@
     "chrome-launcher": "^0.13.4",
     "deepmerge": "^4.2.2",
     "jsonpath": "^1.0.2",
-    "lighthouse": "^6.4.1",
+    "lighthouse": "^7.0.0",
     "minimist": "^1.2.5"
   },
   "devDependencies": {
