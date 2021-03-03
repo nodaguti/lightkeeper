@@ -14,8 +14,8 @@
     "lint": "npm-run-all lint:*",
     "lint:type": "tsc --noEmit",
     "lint:eslint": "eslint .",
-    "lint:format": "prettier --check 'src/**/*.{ts,js,json,md}'",
-    "format": "prettier 'src/**/*.{ts,js,json,md}'",
+    "lint:format": "prettier --check .",
+    "format": "prettier --write .",
     "test": "jest",
     "prepublishOnly": "npm-run-all build"
   },
