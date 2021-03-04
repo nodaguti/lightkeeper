@@ -13,11 +13,11 @@ type Argv = {
 };
 
 async function main(): Promise<void> {
-  const argv = minimist(process.argv.slice(2), {
+  const argv = (minimist(process.argv.slice(2), {
     string: ['url', 'device', 'config'],
-  }) as unknown as Argv;
+  }) as unknown) as Argv;
   const configPath = path.resolve(process.cwd(), argv.config);
-  const config = await import(configPath) as LightkeeperConfig;
+  const config = (await import(configPath)) as LightkeeperConfig;
 
   const result = await lightkeeper({
     url: argv.url,

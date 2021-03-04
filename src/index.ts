@@ -57,7 +57,9 @@ export async function lightkeeper({
 
     for (let i = 0; i < runs; i++) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      const runnerResult = await lighthouse(url, settings, config) as { lhr: unknown };
+      const runnerResult = (await lighthouse(url, settings, config)) as {
+        lhr: unknown;
+      };
       const metrics = extractMetrics(runnerResult.lhr, metricConfigs);
 
       results.push({ metrics });

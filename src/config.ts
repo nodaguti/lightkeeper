@@ -1,4 +1,4 @@
-import { MetricConfig } from "./metrics";
+import { MetricConfig } from './metrics';
 
 export type LightkeeperConfig = {
   runs: number;
@@ -8,4 +8,4 @@ export type LightkeeperConfig = {
     config: unknown;
   };
   metrics: MetricConfig[];
-}
+};
