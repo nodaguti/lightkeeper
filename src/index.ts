@@ -31,10 +31,10 @@ export async function lightkeeper({
   url: string;
   device: Device;
   runs: number;
-  aggregate: boolean;
+  aggregate?: boolean;
   metricConfigs: MetricConfig[];
-  lighthouseFlags: LighthouseFlagsSettings;
-  lighthouseConfig: LighthouseConfig;
+  lighthouseFlags?: LighthouseFlagsSettings;
+  lighthouseConfig?: LighthouseConfig;
 }): Promise<LightkeeperResults> {
   const chrome = await chromeLauncher.launch({
     chromeFlags: ['--headless', '--no-sandbox'],
@@ -62,7 +62,7 @@ export async function lightkeeper({
       results.push({ metrics });
     }
 
-    if (aggregate) {
+    if (aggregate === true) {
       const aggregatedResults = aggregateResults({ results });
       return { results, aggregated: aggregatedResults };
     }
