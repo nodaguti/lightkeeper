@@ -16,10 +16,7 @@ type LightkeeperResult = {
 
 export type LightkeeperResults = {
   results: LightkeeperResult[];
-};
-
-export type LightkeeperAggregatedResult = {
-  metrics: AggregatedMetric[];
+  aggregated?: AggregatedMetric[];
 };
 
 export async function lightkeeper({
@@ -38,7 +35,7 @@ export async function lightkeeper({
   metricConfigs: MetricConfig[];
   lighthouseFlags: LighthouseFlagsSettings;
   lighthouseConfig: LighthouseConfig;
-}): Promise<LightkeeperResults | LightkeeperAggregatedResult> {
+}): Promise<LightkeeperResults> {
   const chrome = await chromeLauncher.launch({
     chromeFlags: ['--headless', '--no-sandbox'],
   });
@@ -67,7 +64,7 @@ export async function lightkeeper({
 
     if (aggregate) {
       const aggregatedResults = aggregateResults({ results });
-      return { metrics: aggregatedResults };
+      return { results, aggregated: aggregatedResults };
     }
 
     return { results };
