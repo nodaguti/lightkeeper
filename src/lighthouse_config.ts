@@ -1,9 +1,13 @@
 import merge from 'deepmerge';
-import { throttling } from 'lighthouse/lighthouse-core/config/constants';
+import desktopConfig from 'lighthouse/lighthouse-core/config/desktop-config';
 
 export type Device = 'desktop' | 'mobile';
 export type LighthouseFlagsSettings = unknown;
 export type LighthouseConfig = unknown;
+
+type LighthouseDesktopConfig = {
+  settings: unknown;
+};
 
 export function generateLighthouseFlagsSettings({
   device,
@@ -25,11 +29,7 @@ export function generateLighthouseFlagsSettings({
   const deviceEmulationSettings =
     device === 'mobile'
       ? {}
-      : {
-          emulatedFormFactor: 'desktop',
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          throttling: throttling.desktopDense4G,
-        };
+      : (desktopConfig as LighthouseDesktopConfig).settings;
 
   const merged = merge.all([
     baseSettings,
