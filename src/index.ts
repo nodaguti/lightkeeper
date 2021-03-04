@@ -23,6 +23,7 @@ export async function lightkeeper({
   url,
   device,
   runs,
+  failFast,
   aggregate,
   metricConfigs,
   lighthouseFlags,
@@ -31,6 +32,7 @@ export async function lightkeeper({
   url: string;
   device: Device;
   runs: number;
+  failFast?: boolean;
   aggregate?: boolean;
   metricConfigs: MetricConfig[];
   lighthouseFlags?: LighthouseFlagsSettings;
@@ -53,13 +55,21 @@ export async function lightkeeper({
     const results: LightkeeperResult[] = [];
 
     for (let i = 0; i < runs; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      const runnerResult = (await lighthouse(url, settings, config)) as {
-        lhr: unknown;
-      };
-      const metrics = extractMetrics(runnerResult.lhr, metricConfigs);
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        const runnerResult = (await lighthouse(url, settings, config)) as {
+          lhr: unknown;
+        };
+        const metrics = extractMetrics(runnerResult.lhr, metricConfigs);
 
-      results.push({ metrics });
+        results.push({ metrics });
+      } catch (e) {
+        console.error(`Error at ${i + 1} run`, e);
+
+        if (failFast !== false) {
+          throw e;
+        }
+      }
     }
 
     if (aggregate === true) {

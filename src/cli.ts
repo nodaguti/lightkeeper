@@ -23,6 +23,7 @@ async function main(): Promise<void> {
     url: argv.url,
     device: argv.device,
     runs: config.runs,
+    failFast: config.failFast,
     aggregate: config.aggregate,
     metricConfigs: config.metrics,
     lighthouseFlags: config.lighthouse?.flags,

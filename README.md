@@ -95,6 +95,7 @@ When `aggregate` option is set to `true`, aggregated data will also be included:
 ```json
 {
   "runs": 3,
+  "failFast": false,
   "aggregate": true,
   "lighthouse": {
     "flags": {},
@@ -130,6 +131,12 @@ When `aggregate` option is set to `true`, aggregated data will also be included:
 `Required`
 
 Specifies how many times Lighthouse will run. A higher value contibutes more robust results but takes a long time to finish measuring.
+
+#### failFast
+
+`Optional` (Default: `true`)
+
+If set true, Lightkeeper will terminate its process immediately after an error occurs. Otherwise, it will continue to try running Lighthouse for given times.
 
 #### aggregate
 
