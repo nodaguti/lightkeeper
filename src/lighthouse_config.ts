@@ -27,6 +27,7 @@ export function generateLighthouseFlagsSettings({
       ? {}
       : {
           emulatedFormFactor: 'desktop',
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           throttling: throttling.desktopDense4G,
         };
 

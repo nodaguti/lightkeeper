@@ -22,6 +22,7 @@ test('device: mobile lets Lightkeeper use the mobile configuration', async () =>
     },
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const userAgent = jsonpath.query(
     results,
     "$..[?(@['name']=='user-agent')]['value']",
@@ -50,6 +51,7 @@ test('device: desktop lets Lightkeeper use the desktop configuration', async () 
     },
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const userAgent = jsonpath.query(
     results,
     "$..[?(@['name']=='user-agent')]['value']",
@@ -116,6 +118,7 @@ test('aggregate: true prints aggregated result of runs', async () => {
 
   expect(values).toHaveLength(1);
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const stats = values[0];
 
   expect(stats).toHaveProperty('min');

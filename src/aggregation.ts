@@ -19,17 +19,20 @@ export function aggregateResults(
 ): AggregatedMetric[] {
   const resultsGroupedByMetric: {
     [metricName: string]: Metric[];
-  } = results.results.reduce((acc, metrics) => {
-    metrics.metrics.forEach((metric) => {
-      if (acc[metric.name] === undefined) {
-        acc[metric.name] = [];
-      }
+  } = results.results.reduce(
+    (acc: { [metricName: string]: Metric[] }, metrics) => {
+      metrics.metrics.forEach((metric) => {
+        if (acc[metric.name] === undefined) {
+          acc[metric.name] = [];
+        }
 
-      acc[metric.name].push(metric);
-    });
+        acc[metric.name].push(metric);
+      });
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    {},
+  );
   const aggregatedMetrics: AggregatedMetric[] = Object.entries(
     resultsGroupedByMetric,
   ).map(([name, metrics]) => {

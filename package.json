@@ -11,9 +11,13 @@
   ],
   "scripts": {
     "build": "tsc",
-    "lint": "tsc --noEmit && prettier --check 'src/**/*.{ts,js,json,md}'",
+    "lint": "npm-run-all lint:*",
+    "lint:type": "tsc --noEmit",
+    "lint:eslint": "eslint .",
+    "lint:format": "prettier --check .",
+    "format": "prettier --write .",
     "test": "jest",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "npm-run-all build"
   },
   "keywords": [],
   "author": "nodaguti",
@@ -27,8 +31,15 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.16",
+    "@types/jsonpath": "^0.2.0",
+    "@types/minimist": "^1.2.1",
     "@types/node": "^14.14.9",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
     "jest": "^26.6.3",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.2.0",
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.2"
