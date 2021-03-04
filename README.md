@@ -95,6 +95,7 @@ When `aggregate` option is set to `true`, aggregated data will also be included:
 ```json
 {
   "runs": 3,
+  "failFast": false,
   "aggregate": true,
   "lighthouse": {
     "flags": {},
@@ -127,21 +128,37 @@ When `aggregate` option is set to `true`, aggregated data will also be included:
 
 #### runs
 
+`Required`
+
 Specifies how many times Lighthouse will run. A higher value contibutes more robust results but takes a long time to finish measuring.
 
+#### failFast
+
+`Optional` (Default: `true`)
+
+If set true, Lightkeeper will terminate its process immediately after an error occurs. Otherwise, it will continue to try running Lighthouse for given times.
+
 #### aggregate
+
+`Optional` (Default: `false`)
 
 If set true, Lightkeeper will also report an aggregated result of multiple runs in addition to metrics collected by each run.
 
 #### lighthouse.flags
 
+`Optional` (Default: `{}`)
+
 This object is passed to the second argument of `lighthouse()`. The available flags can be found in [Lighthouse's document](https://github.com/GoogleChrome/lighthouse/blob/master/docs/readme.md#differences-from-cli-flags).
 
 #### lighthouse.config
 
+`Optional` (Default: `{}`)
+
 This object is passed to the third argument of `lighthouse()`. See [Lighthouse's document](https://github.com/GoogleChrome/lighthouse/blob/master/docs/readme.md#configuration) for the full list of available options.
 
 #### metrics
+
+`Required`
 
 A list of metrics that will be extracted from a Lighthouse output.
 

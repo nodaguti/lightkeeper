@@ -23,6 +23,7 @@ export async function lightkeeper({
   url,
   device,
   runs,
+  failFast,
   aggregate,
   metricConfigs,
   lighthouseFlags,
@@ -31,10 +32,11 @@ export async function lightkeeper({
   url: string;
   device: Device;
   runs: number;
-  aggregate: boolean;
+  failFast?: boolean;
+  aggregate?: boolean;
   metricConfigs: MetricConfig[];
-  lighthouseFlags: LighthouseFlagsSettings;
-  lighthouseConfig: LighthouseConfig;
+  lighthouseFlags?: LighthouseFlagsSettings;
+  lighthouseConfig?: LighthouseConfig;
 }): Promise<LightkeeperResults> {
   const chrome = await chromeLauncher.launch({
     chromeFlags: ['--headless', '--no-sandbox'],
@@ -53,16 +55,24 @@ export async function lightkeeper({
     const results: LightkeeperResult[] = [];
 
     for (let i = 0; i < runs; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      const runnerResult = (await lighthouse(url, settings, config)) as {
-        lhr: unknown;
-      };
-      const metrics = extractMetrics(runnerResult.lhr, metricConfigs);
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        const runnerResult = (await lighthouse(url, settings, config)) as {
+          lhr: unknown;
+        };
+        const metrics = extractMetrics(runnerResult.lhr, metricConfigs);
 
-      results.push({ metrics });
+        results.push({ metrics });
+      } catch (e) {
+        console.error(`Error at ${i + 1} run`, e);
+
+        if (failFast !== false) {
+          throw e;
+        }
+      }
     }
 
-    if (aggregate) {
+    if (aggregate === true) {
       const aggregatedResults = aggregateResults({ results });
       return { results, aggregated: aggregatedResults };
     }
