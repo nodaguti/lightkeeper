@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.16",
+    "@types/jsonpath": "^0.2.0",
+    "@types/minimist": "^1.2.1",
     "@types/node": "^14.14.9",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",

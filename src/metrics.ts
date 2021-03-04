@@ -18,7 +18,7 @@ export function extractMetrics(
 ): Metric[] {
   return metrics
     .map((metricConfig) => {
-      const node = jsonpath.query(lighthouseResult, metricConfig.query);
+      const node = jsonpath.query(lighthouseResult, metricConfig.query) as string[] | number[];
 
       if (node.length === 0) {
         console.warn(`WARN: ${metricConfig.query} didn't match anything.`);
