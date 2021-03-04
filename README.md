@@ -36,32 +36,35 @@ const results = await lightkeeper({
 
 #### Output
 
-When `aggregate` option is set to `false`, `lightkeeper()` returns a following object:
-
 ```json5
 {
   "results": [
     // Each "metrics" represents a single run of Lighthouse
-    "metrics": [
-      { "name": "largest-contentful-paint", value: 1234.56 },
-      { "name": "total-blocking-time", value: 123.45 },
-      // ....
-    ],
-    "metrics": [
-      { "name": "largest-contentful-paint", value: 1234.56 },
-      { "name": "total-blocking-time", value: 123.45 },
-      // ....
-    ],
+    {
+      "metrics": [
+        { "name": "largest-contentful-paint", value: 1234.56 },
+        { "name": "total-blocking-time", value: 123.45 },
+        // ....
+      ],
+    }
+    {
+      "metrics": [
+        { "name": "largest-contentful-paint", value: 1234.56 },
+        { "name": "total-blocking-time", value: 123.45 },
+        // ....
+      ],
+    },
     // ...
   ];
 }
 ```
 
-When `aggregate` option is set to `true`:
+When `aggregate` option is set to `true`, aggregated data will also be included:
 
 ```json5
 {
-  metrics: [
+  results: [], // same as above
+  aggregated: [
     {
       name: 'largest-contentful-paint',
       value: {
@@ -84,14 +87,6 @@ When `aggregate` option is set to `true`:
   ],
 }
 ```
-
-### Statistically compare metrics of multiple websites
-
-(Under development)
-
-### Visualise historical metrics
-
-(Under development)
 
 ## Configuration
 
@@ -136,7 +131,7 @@ Specifies how many times Lighthouse will run. A higher value contibutes more rob
 
 #### aggregate
 
-If set true, results of multiple runs will be aggregated and Lightkeeper outputs only statistically processed values of metrics.
+If set true, Lightkeeper will also report an aggregated result of multiple runs in addition to metrics collected by each run.
 
 #### lighthouse.flags
 

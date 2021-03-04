@@ -80,6 +80,11 @@ test('aggregate: false prints results of each run', async () => {
     },
   });
 
+  expect(results).toHaveProperty('results');
+  expect(Array.isArray(results.results)).toBeTruthy();
+  expect(results.results[0]).toHaveProperty('metrics');
+  expect(results).not.toHaveProperty('aggregated');
+
   const values = jsonpath.query(
     results,
     "$..[?(@['name']=='first-contentful-paint')]['value']",
@@ -111,9 +116,14 @@ test('aggregate: true prints aggregated result of runs', async () => {
     },
   });
 
+  expect(results).toHaveProperty('results');
+  expect(Array.isArray(results.results)).toBeTruthy();
+  expect(results.results[0]).toHaveProperty('metrics');
+  expect(results).toHaveProperty('aggregated');
+
   const values = jsonpath.query(
     results,
-    "$['metrics'][?(@['name']=='first-contentful-paint')]['value']",
+    "$['aggregated'][?(@['name']=='first-contentful-paint')]['value']",
   );
 
   expect(values).toHaveLength(1);
