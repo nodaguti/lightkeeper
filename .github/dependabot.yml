@@ -1,0 +1,23 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "20:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.18.0
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.18.0
+  - dependency-name: lighthouse
+    versions:
+    - 7.0.1
+    - 7.1.0
+    - 7.2.0
+  - dependency-name: ts-jest
+    versions:
+    - 26.5.1
