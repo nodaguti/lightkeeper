@@ -23,7 +23,7 @@
   "author": "nodaguti",
   "license": "MIT",
   "dependencies": {
-    "chrome-launcher": "^0.13.4",
+    "chrome-launcher": "^0.14.0",
     "deepmerge": "^4.2.2",
     "jsonpath": "^1.0.2",
     "lighthouse": "^7.2.0",
